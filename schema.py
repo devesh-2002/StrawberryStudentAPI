@@ -39,5 +39,12 @@ def get_students():
 class Query:
     students: typing.List[Student] = strawberry.field(resolver=get_students)
 
+@strawberry.type
+class Mutation:
+    @strawberry.mutation
+    def add_student(self, name: str, roll_no: int, div:str) -> Student:
+        print(f"Adding Name : {name}, Roll No : {roll_no}, Div : {div}")
+ 
+        return Student(name=name, roll_no=roll_no, div=div)
 
-schema = strawberry.Schema(query=Query)
+schema = strawberry.Schema(query=Query,mutation=Mutation)
